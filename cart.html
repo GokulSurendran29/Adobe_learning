@@ -47,11 +47,23 @@ function updateDigitalDataFromCart() {
     console.log("Updated digitalData:", window.digitalData);
 }
 
+// Initial call to update data on page load
 updateDigitalDataFromCart();
 
+// Event delegation for dynamically added .delete-cart buttons
 document.addEventListener("click", function (event) {
-    if (event.target && event.target.matches(".delete-cart")) { 
-        console.log("Dynamic button clicked! Updating digitalData...");
+    if (event.target && event.target.classList.contains("delete-cart")) {
+        console.log("Delete button clicked! Updating digitalData...");
+        
+        // Simulating item removal (Ensure actual cart update logic is handled in your app)
+        let cartData = JSON.parse(localStorage.getItem("cart") || "[]");
+        let itemId = event.target.getAttribute("data-id"); // Assuming button has data-id attribute
+        
+        // Remove the item from cartData
+        cartData = cartData.filter(item => item.id !== itemId);
+        localStorage.setItem("cart", JSON.stringify(cartData)); // Save updated cart back to storage
+
+        // Update digitalData
         updateDigitalDataFromCart();
     }
 });
