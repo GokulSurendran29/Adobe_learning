@@ -9,18 +9,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="css/main.css" />
     <script src="https://assets.adobedtm.com/8459819b208c/b7514740f7ba/launch-2c1d3f01cca4.min.js" async></script>
-    <script>
+<script>
 window.digitalData = window.digitalData || {};
 
-// Function to update digitalData dynamically from localStorage
 function updateDigitalDataFromCart() {
     let cartData = JSON.parse(localStorage.getItem("cart") || "[]");
 
-    // Calculate total price and item count
     let cartTotal = cartData.reduce((sum, item) => sum + (item.price.newPrice * item.quantity), 0);
     let itemCount = cartData.reduce((sum, item) => sum + item.quantity, 0);
 
-    // Transform cart data to match digitalData format
     let products = cartData.map(item => ({
         productID: item.id,
         productName: item.name,
@@ -28,10 +25,9 @@ function updateDigitalDataFromCart() {
         productPrice: item.price.newPrice,
         discount: item.discount,
         quantity: item.quantity,
-        productImage: item.img.singleImage // Main product image
+        productImage: item.img.singleImage
     }));
 
-    // Update digitalData
     window.digitalData = {
         page: {
             pageName: "Cart Page",
@@ -41,7 +37,7 @@ function updateDigitalDataFromCart() {
         },
         cart: {
             cartEvent: "Cart View",
-            cartTotal: cartTotal.toFixed(2), // Ensure 2 decimal places
+            cartTotal: cartTotal.toFixed(2),
             currency: "USD",
             itemCount: itemCount,
             products: products
@@ -51,28 +47,16 @@ function updateDigitalDataFromCart() {
     console.log("Updated digitalData:", window.digitalData);
 }
 
-// Run function to update digitalData when page loads
 updateDigitalDataFromCart();
 
-// Listen for changes in cart (optional)
-window.addEventListener("storage", function (event) {
-    if (event.key === "cart") {
+document.addEventListener("click", function (event) {
+    if (event.target && event.target.matches(".delete-cart")) { 
+        console.log("Dynamic button clicked! Updating digitalData...");
         updateDigitalDataFromCart();
     }
 });
-
-// 🔹 Update digitalData when a button is clicked
-document.addEventListener("DOMContentLoaded", function () {
-    const updateButton = document.getElementById("updateCartButton"); // Change ID as needed
-
-    if (updateButton) {
-        updateButton.addEventListener("click", function () {
-            console.log("Button clicked! Updating digitalData...");
-            updateDigitalDataFromCart();
-        });
-    }
-});
 </script>
+
     <title>E-Commerce | Cart</title>
 </head>
 
