@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="css/main.css" />
     <script src="https://assets.adobedtm.com/8459819b208c/b7514740f7ba/launch-2c1d3f01cca4.min.js" async></script>
-<script>
-// Ensure digitalData object exists
+    <script>
 window.digitalData = window.digitalData || {};
 
 // Function to update digitalData dynamically from localStorage
@@ -55,47 +54,25 @@ function updateDigitalDataFromCart() {
 // Run function to update digitalData when page loads
 updateDigitalDataFromCart();
 
-// 🔹 Listen for storage changes (works across tabs/windows)
+// Listen for changes in cart (optional)
 window.addEventListener("storage", function (event) {
     if (event.key === "cart") {
         updateDigitalDataFromCart();
     }
 });
 
-// 🔹 Detect localStorage updates in the same tab
-(function () {
-    const originalSetItem = localStorage.setItem;
-    const originalRemoveItem = localStorage.removeItem;
+// 🔹 Update digitalData when a button is clicked
+document.addEventListener("DOMContentLoaded", function () {
+    const updateButton = document.getElementById("updateCartButton"); // Change ID as needed
 
-    function storageEventHandler(key, value) {
-        if (key === "cart") {
+    if (updateButton) {
+        updateButton.addEventListener("click", function () {
+            console.log("Button clicked! Updating digitalData...");
             updateDigitalDataFromCart();
-        }
+        });
     }
-
-    localStorage.setItem = function (key, value) {
-        storageEventHandler(key, value);
-        originalSetItem.apply(this, arguments);
-    };
-
-    localStorage.removeItem = function (key) {
-        storageEventHandler(key, null);
-        originalRemoveItem.apply(this, arguments);
-    };
-})();
-
-// 🔹 Update digitalData on any major user interaction
-const events = ["click", "scroll", "keydown", "mousemove", "touchstart", "input"];
-
-events.forEach(event => {
-    document.addEventListener(event, () => {
-        updateDigitalDataFromCart();
-    });
 });
 </script>
-
-
-
     <title>E-Commerce | Cart</title>
 </head>
 
