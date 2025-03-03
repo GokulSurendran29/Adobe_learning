@@ -55,15 +55,30 @@ function updateDigitalDataFromCart() {
 // Run function to update digitalData when page loads
 updateDigitalDataFromCart();
 
-// Listen for changes in cart (optional)
+// 🔹 Listen for storage changes (works across tabs/windows)
 window.addEventListener("storage", function (event) {
     if (event.key === "cart") {
         updateDigitalDataFromCart();
     }
 });
 
+// 🔹 Watch for changes in localStorage in the same tab
+function monitorLocalStorage() {
+    let lastCartData = localStorage.getItem("cart");
 
+    setInterval(() => {
+        let newCartData = localStorage.getItem("cart");
+        if (newCartData !== lastCartData) {
+            lastCartData = newCartData;
+            updateDigitalDataFromCart();
+        }
+    }, 500); // Checks every 500ms (Adjust as needed)
+}
+
+// Start monitoring localStorage changes
+monitorLocalStorage();
 </script>
+
 
     <title>E-Commerce | Cart</title>
 </head>
