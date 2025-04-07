@@ -12,6 +12,24 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css" />
   <script src="https://cmp.osano.com/169xp1U9LciRwCZm6/670e5b46-d593-48af-bac2-31d6a3dc70ab/osano.js"></script>
 <script src="https://assets.adobedtm.com/8459819b208c/cbb93a1fde1a/launch-61ab7d03d3f5.min.js" async></script>
+ <script>
+  // Set 5 categorized cookies for Osano to detect and classify
+  const cookies = [
+    { name: "cookie_essential", value: "true", days: 365 },
+    { name: "cookie_marketing", value: "true", days: 365 },
+    { name: "cookie_personalization", value: "true", days: 365 },
+    { name: "cookie_blocklist", value: "true", days: 365 },
+    { name: "cookie_analytics", value: "true", days: 365 },
+  ];
+
+  cookies.forEach(cookie => {
+    const expires = new Date(Date.now() + cookie.days * 864e5).toUTCString();
+    document.cookie = `${cookie.name}=${cookie.value}; expires=${expires}; path=/; SameSite=Lax`;
+  });
+
+  console.log("Test cookies set.");
+</script>
+
 <!--   <script src="https://assets.adobedtm.com/8459819b208c/b7514740f7ba/launch-2c1d3f01cca4.min.js" async></script> -->
   <title>E-Commerce | Home</title>
 </head>
