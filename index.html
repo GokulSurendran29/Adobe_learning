@@ -14,21 +14,20 @@
   <script src="https://assets.adobedtm.com/8459819b208c/cbb93a1fde1a/launch-61ab7d03d3f5.min.js" async></script>
  <script>
   // Set 5 categorized cookies for Osano to detect and classify
-  const cookies = [
-    { name: "cookie_essential", value: "true", days: 365 },
-    { name: "cookie_marketing", value: "true", days: 365 },
-    { name: "cookie_personalization", value: "true", days: 365 },
-    { name: "cookie_blocklist", value: "true", days: 365 },
-    { name: "cookie_analytics", value: "true", days: 365 },
-    { name: "Cookie_Test", value: "Test value", days: 365 },
-    { name: "Cookie_Test2", value: "true", days: 365 },
+const cookies = [
+  { name: "cookie_essential", value: "true" },
+  { name: "cookie_marketing", value: "true" },
+  { name: "cookie_personalization", value: "true" },
+  { name: "cookie_blocklist", value: "true" },
+  { name: "cookie_analytics", value: "true" },
+  { name: "Cookie_Test", value: "Test value" },
+  { name: "Cookie_Test2", value: "true" },
+];
 
-  ];
+cookies.forEach(cookie => {
+  document.cookie = `${cookie.name}=${cookie.value}; path=/; SameSite=Lax`;
+});
 
-  cookies.forEach(cookie => {
-    const expires = new Date(Date.now() + cookie.days * 864e5).toUTCString();
-    document.cookie = `${cookie.name}=${cookie.value}; expires=${expires}; path=/; SameSite=Lax`;
-  });
 
   console.log("Test cookies set.");
 </script>
