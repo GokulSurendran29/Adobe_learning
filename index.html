@@ -32,27 +32,33 @@
       });
 
       console.log("Test cookies set.");
-
+Console.log("Want to start the code");
       // Set up DigitalDataLayer and attach event listeners
-      window.DigitalDataLayer = window.DigitalDataLayer || [];
+     document.addEventListener('DOMContentLoaded', function () {
+  console.log("Document loaded");
 
-      document.querySelectorAll('.view-all-btn').forEach(function (button) {
-        console.log("Hello all");
-        button.addEventListener('click', function (event) {
-          const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
+  document.querySelectorAll('.view-all-btn').forEach(function (button) {
+    console.log("Button found:", button);  // Check if buttons are found
 
-          window.DigitalDataLayer.push({
-            event: 'viewAllClick',
-            campaign: campaignTitle
-          });
+    button.addEventListener('click', function (event) {
+      console.log("Button clicked");  // Log when button is clicked
 
-          console.log('DigitalDataLayer Event Fired:', {
-            event: 'viewAllClick',
-            campaign: campaignTitle
-          });
-        });
+      const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
+      console.log('Campaign:', campaignTitle);
+
+      window.DigitalDataLayer.push({
+        event: 'viewAllClick',
+        campaign: campaignTitle
+      });
+
+      console.log('DigitalDataLayer Event Fired:', {
+        event: 'viewAllClick',
+        campaign: campaignTitle
       });
     });
+  });
+});
+
   </script>
 
   <title>E-Commerce | Home</title>
