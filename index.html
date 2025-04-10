@@ -10,51 +10,51 @@
   <link rel="stylesheet" href="css/main.css" />
   <!-- !Glide.js Css CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css" />
-<script src="https://cmp.osano.com/169xp1U9LciRwCZm6/b2cd7e99-0aa9-4d91-bff6-29d6c9ed7cf3/osano.js"></script>
+  <script src="https://cmp.osano.com/169xp1U9LciRwCZm6/b2cd7e99-0aa9-4d91-bff6-29d6c9ed7cf3/osano.js"></script>
   <script src="https://assets.adobedtm.com/8459819b208c/cbb93a1fde1a/launch-61ab7d03d3f5.min.js" async></script>
- <script>
-  // Set 5 categorized cookies for Osano to detect and classify
-const cookies = [
-  { name: "cookie_essential", value: "true" },
-  { name: "cookie_marketing", value: "true" },
-  { name: "cookie_personalization", value: "true" },
-  { name: "cookie_blocklist", value: "true" },
-  { name: "cookie_analytics", value: "true" },
-  { name: "Cookie_Test", value: "Test value" },
-  { name: "Cookie_Test2", value: "true" },
-];
 
-cookies.forEach(cookie => {
-  document.cookie = `${cookie.name}=${cookie.value}; path=/; SameSite=Lax`;
-});
+  <script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
+      // Set categorized cookies for Osano to detect and classify
+      const cookies = [
+        { name: "cookie_essential", value: "true" },
+        { name: "cookie_marketing", value: "true" },
+        { name: "cookie_personalization", value: "true" },
+        { name: "cookie_blocklist", value: "true" },
+        { name: "cookie_analytics", value: "true" },
+        { name: "Cookie_Test", value: "Test value" },
+        { name: "Cookie_Test2", value: "true" },
+      ];
 
-
-  console.log("Test cookies set.");
-</script>
-
-
-   <script>
-  window.DigitalDataLayer = window.DigitalDataLayer || [];
-
-  document.querySelectorAll('.view-all-btn').forEach(function (button) {
-    console.log("Hellow all");
-    button.addEventListener('click', function (event) {
-      const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
-
-      window.DigitalDataLayer.push({
-        event: 'viewAllClick',
-        campaign: campaignTitle
+      cookies.forEach(cookie => {
+        document.cookie = `${cookie.name}=${cookie.value}; path=/; SameSite=Lax`;
       });
 
-      console.log('DigitalDataLayer Event Fired:', {
-        event: 'viewAllClick',
-        campaign: campaignTitle
+      console.log("Test cookies set.");
+
+      // Set up DigitalDataLayer and attach event listeners
+      window.DigitalDataLayer = window.DigitalDataLayer || [];
+
+      document.querySelectorAll('.view-all-btn').forEach(function (button) {
+        console.log("Hello all");
+        button.addEventListener('click', function (event) {
+          const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
+
+          window.DigitalDataLayer.push({
+            event: 'viewAllClick',
+            campaign: campaignTitle
+          });
+
+          console.log('DigitalDataLayer Event Fired:', {
+            event: 'viewAllClick',
+            campaign: campaignTitle
+          });
+        });
       });
     });
-  });
-</script>
+  </script>
 
-<!--   <script src="https://assets.adobedtm.com/8459819b208c/b7514740f7ba/launch-2c1d3f01cca4.min.js" async></script> -->
   <title>E-Commerce | Home</title>
 </head>
 
