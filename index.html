@@ -30,6 +30,28 @@ cookies.forEach(cookie => {
 
 
   console.log("Test cookies set.");
+
+
+   <script>
+  window.dataLayer = window.dataLayer || [];
+
+  document.querySelectorAll('.view-all-btn').forEach(function (button) {
+    button.addEventListener('click', function (event) {
+      const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
+
+      window.dataLayer.push({
+        event: 'viewAllClick',
+        campaign: campaignTitle
+      });
+
+      console.log('DataLayer Event Fired:', {
+        event: 'viewAllClick',
+        campaign: campaignTitle
+      });
+    });
+  });
+</script>
+
 </script>
 <!--   <script src="https://assets.adobedtm.com/8459819b208c/b7514740f7ba/launch-2c1d3f01cca4.min.js" async></script> -->
   <title>E-Commerce | Home</title>
@@ -418,7 +440,7 @@ cookies.forEach(cookie => {
           <p class="campaing-desc">
             Lorem ipsum dolor sit amet consectetur adipiscing elit dolor
           </p>
-          <a href="#" class="btn btn-primary" data-campaign="Fashion Month Capital Shop" data-campaign="Shop View 1">
+          <a href="#" class="btn btn-primary view-all-btn" data-campaign="Fashion Month Capital Shop" data-campaign="Shop View 1">
             View All
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -432,7 +454,7 @@ cookies.forEach(cookie => {
           <p class="campaing-desc">
             Lorem ipsum dolor sit amet consectetur adipiscing elit dolor
           </p>
-          <a href="#" class="btn btn-primary" data-campaign="Shop View 2">
+          <a href="#" class="btn btn-primary view-all-btn" data-campaign="Shop View 2">
             View All
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -448,7 +470,7 @@ cookies.forEach(cookie => {
           <p class="campaing-desc">
             Lorem ipsum dolor sit amet consectetur adipiscing elit dolor
           </p>
-          <a href="#" class="btn btn-primary" data-campaign="Shop View 3">
+          <a href="#" class="btn btn-primary view-all-btn" data-campaign="Shop View 3">
             View All
             <i class="bi bi-arrow-right"></i>
           </a>
@@ -462,7 +484,7 @@ cookies.forEach(cookie => {
           <p class="campaing-desc">
             Lorem ipsum dolor sit amet consectetur adipiscing elit dolor
           </p>
-          <a href="#" class="btn btn-primary" data-campaign="Shop View 4">
+          <a href="#" class="btn btn-primary view-all-btn" data-campaign="Shop View 4">
             View All
             <i class="bi bi-arrow-right"></i>
           </a>
