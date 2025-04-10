@@ -14,52 +14,54 @@
   <script src="https://assets.adobedtm.com/8459819b208c/cbb93a1fde1a/launch-61ab7d03d3f5.min.js" async></script>
 
   <script>
-    // Wait for DOM to be fully loaded
-    document.addEventListener('DOMContentLoaded', function () {
-      // Set categorized cookies for Osano to detect and classify
-      const cookies = [
-        { name: "cookie_essential", value: "true" },
-        { name: "cookie_marketing", value: "true" },
-        { name: "cookie_personalization", value: "true" },
-        { name: "cookie_blocklist", value: "true" },
-        { name: "cookie_analytics", value: "true" },
-        { name: "Cookie_Test", value: "Test value" },
-        { name: "Cookie_Test2", value: "true" },
-      ];
+  window.dataLayer = window.dataLayer || [];
 
-      cookies.forEach(cookie => {
-        document.cookie = `${cookie.name}=${cookie.value}; path=/; SameSite=Lax`;
-      });
+  document.addEventListener('DOMContentLoaded', function () {
+    console.log("Document loaded");
 
-      console.log("Test cookies set.");
-Console.log("Want to start the code");
-      // Set up DigitalDataLayer and attach event listeners
-     document.addEventListener('DOMContentLoaded', function () {
-  console.log("Document loaded");
+    // Set categorized cookies for Osano to detect and classify
+    const cookies = [
+      { name: "cookie_essential", value: "true" },
+      { name: "cookie_marketing", value: "true" },
+      { name: "cookie_personalization", value: "true" },
+      { name: "cookie_blocklist", value: "true" },
+      { name: "cookie_analytics", value: "true" },
+      { name: "Cookie_Test", value: "Test value" },
+      { name: "Cookie_Test2", value: "true" },
+    ];
 
-  document.querySelectorAll('.view-all-btn').forEach(function (button) {
-    console.log("Button found:", button);  // Check if buttons are found
+    cookies.forEach(cookie => {
+      document.cookie = `${cookie.name}=${cookie.value}; path=/; SameSite=Lax`;
+    });
 
-    button.addEventListener('click', function (event) {
-      console.log("Button clicked");  // Log when button is clicked
+    console.log("Test cookies set.");
+    console.log("Want to start the code");
 
-      const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
-      console.log('Campaign:', campaignTitle);
+    // Attach click event listeners to all "View All" buttons
+    document.querySelectorAll('.view-all-btn').forEach(function (button) {
+      console.log("Button found:", button);  // Check if buttons are found
 
-      window.DigitalDataLayer.push({
-        event: 'viewAllClick',
-        campaign: campaignTitle
-      });
+      button.addEventListener('click', function (event) {
+        event.preventDefault(); // prevent default anchor behavior
+        console.log("Button clicked");
 
-      console.log('DigitalDataLayer Event Fired:', {
-        event: 'viewAllClick',
-        campaign: campaignTitle
+        const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
+        console.log('Campaign:', campaignTitle);
+
+        window.dataLayer.push({
+          event: 'viewAllClick',
+          campaign: campaignTitle
+        });
+
+        console.log('DataLayer Event Fired:', {
+          event: 'viewAllClick',
+          campaign: campaignTitle
+        });
       });
     });
   });
-});
+</script>
 
-  </script>
 
   <title>E-Commerce | Home</title>
 </head>
