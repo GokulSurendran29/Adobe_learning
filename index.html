@@ -33,18 +33,19 @@ cookies.forEach(cookie => {
 
 
    <script>
-  window.dataLayer = window.dataLayer || [];
+  window.DigitalDataLayer = window.DigitalDataLayer || [];
 
   document.querySelectorAll('.view-all-btn').forEach(function (button) {
+    console.log("Hellow all");
     button.addEventListener('click', function (event) {
       const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
 
-      window.dataLayer.push({
+      window.DigitalDataLayer.push({
         event: 'viewAllClick',
         campaign: campaignTitle
       });
 
-      console.log('DataLayer Event Fired:', {
+      console.log('DigitalDataLayer Event Fired:', {
         event: 'viewAllClick',
         campaign: campaignTitle
       });
