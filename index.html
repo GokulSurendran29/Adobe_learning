@@ -39,12 +39,10 @@
         const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
 
         // Update digitalData using Adobe standard structure
-        window.dataLayer = {
-          event: {
-            eventName: "viewAllClick",
-            campaign: campaignTitle,
-          }
-        };
+         window.dataLayer.push({
+          event: "viewAllClick",
+          campaign: campaignTitle
+        });
 
         console.log("Updated dataLayer:", window.dataLayer);
 
