@@ -34,27 +34,34 @@
     // Attach event listeners to all .view-all-btn buttons
     document.querySelectorAll('.view-all-btn').forEach(function (button) {
       button.addEventListener('click', function (event) {
-        event.preventDefault();
+       try {
+            event.preventDefault();
 
-        const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
+            const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
 
-        // Update digitalData using Adobe standard structure
-         window.dataLayer.push({
-          event: "viewAllClick",
-          campaign: campaignTitle
-        });
-        console.log("Event fired");
-        console.log("Updated digitalData:", window.dataLayer);
-        window.dispatchEvent(new CustomEvent("viewAllClick"));
+            // Push event to dataLayer
+            window.dataLayer.push({
+              event: "viewAllClick",
+              campaign: campaignTitle
+            });
 
-        // Optional Adobe Analytics tracking function call
-        if (typeof s !== 'undefined' && typeof s.tl === 'function') {
-          s.clearVars();
-          s.linkTrackVars = 'eVar14,events'; // customize as needed
-          s.eVar1 = campaignTitle;
-          s.events = 'eventX'; // replace with actual event code
-          s.tl(this, 'o', 'View All Click');
-        }
+            console.log("Event fired");
+            console.log("Updated dataLayer:", window.dataLayer);
+
+            // Dispatch custom event (optional, if needed for Adobe Launch rules)
+            window.dispatchEvent(new CustomEvent("viewAllClick"));
+
+            // Adobe Analytics tracking function (optional)
+            if (typeof s !== 'undefined' && typeof s.tl === 'function') {
+              s.clearVars();
+              s.linkTrackVars = 'eVar14,events'; // customize as needed
+              s.eVar1 = campaignTitle;
+              s.events = 'eventX'; // replace with actual event code
+              s.tl(this, 'o', 'View All Click');
+            }
+          } catch (error) {
+            console.error("Error handling view-all button click:", error);
+          }
       });
     });
   });
