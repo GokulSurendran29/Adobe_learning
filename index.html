@@ -43,7 +43,8 @@
           event: "viewAllClick",
           campaign: campaignTitle
         });
-
+window.dispatchEvent(new CustomEvent("viewAllClick"));
+        console.log("Event fired");
         console.log("Updated digitalData:", window.dataLayer);
 
         // Optional Adobe Analytics tracking function call
