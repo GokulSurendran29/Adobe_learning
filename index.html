@@ -13,7 +13,7 @@
   <script src="https://cmp.osano.com/169xp1U9LciRwCZm6/b2cd7e99-0aa9-4d91-bff6-29d6c9ed7cf3/osano.js"></script>
   <script src="https://assets.adobedtm.com/8459819b208c/cbb93a1fde1a/launch-61ab7d03d3f5.min.js" async></script>
 <script>
-  window.dataLayer = window.dataLayer || {};
+  window.digitalData = window.digitalData || {};
 
   document.addEventListener('DOMContentLoaded', function () {
     // Set cookies
@@ -39,12 +39,12 @@
         const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
 
         // Update digitalData using Adobe standard structure
-         window.dataLayer.push({
+         window.digitalData.push({
           event: "viewAllClick",
           campaign: campaignTitle
         });
 
-        console.log("Updated dataLayer:", window.dataLayer);
+        console.log("Updated dataLayer:", window.digitalData);
 
         // Optional Adobe Analytics tracking function call
         if (typeof s !== 'undefined' && typeof s.tl === 'function') {
