@@ -13,7 +13,7 @@
   <script src="https://cmp.osano.com/169xp1U9LciRwCZm6/b2cd7e99-0aa9-4d91-bff6-29d6c9ed7cf3/osano.js"></script>
   <script src="https://assets.adobedtm.com/8459819b208c/cbb93a1fde1a/launch-61ab7d03d3f5.min.js" async></script>
 <script>
-  window.digitalData = window.digitalData || {};
+  window.dataLayer = window.dataLayer || {};
 
   document.addEventListener('DOMContentLoaded', function () {
     // Set cookies
@@ -28,7 +28,7 @@
     ];
 
     cookies.forEach(cookie => {
-      document.cookie = `${cookie.name}=${cookie.value}; path=/; SameSite=Lax`;
+      document.cookie = ${cookie.name}=${cookie.value}; path=/; SameSite=Lax;
     });
 
     // Attach event listeners to all .view-all-btn buttons
@@ -38,20 +38,20 @@
 
         const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
 
-        // Update digitalData (OBJECT structure, not array)
-        window.digitalData.event = {
+        // Update digitalData using Adobe standard structure
+         window.dataLayer.push({
           event: "viewAllClick",
           campaign: campaignTitle
-        };
+        });
 
-        console.log("Updated digitalData:", window.digitalData);
+        console.log("Updated digitalData:", window.dataLayer);
 
-        // Adobe Analytics tracking function
+        // Optional Adobe Analytics tracking function call
         if (typeof s !== 'undefined' && typeof s.tl === 'function') {
           s.clearVars();
-          s.linkTrackVars = 'eVar1,events'; // adjust based on implementation
+          s.linkTrackVars = 'eVar14,events'; // customize as needed
           s.eVar1 = campaignTitle;
-          s.events = 'eventX'; // replace with actual event ID from Adobe
+          s.events = 'eventX'; // replace with actual event code
           s.tl(this, 'o', 'View All Click');
         }
       });
