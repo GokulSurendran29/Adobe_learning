@@ -17,9 +17,6 @@
   window.dataLayer = window.dataLayer || [];
 
   document.addEventListener('DOMContentLoaded', function () {
-    console.log("Document loaded");
-
-    // Set categorized cookies for Osano to detect and classify
     const cookies = [
       { name: "cookie_essential", value: "true" },
       { name: "cookie_marketing", value: "true" },
@@ -34,29 +31,17 @@
       document.cookie = `${cookie.name}=${cookie.value}; path=/; SameSite=Lax`;
     });
 
-    console.log("Test cookies set.");
-    console.log("Want to start the code");
-
-    // Attach click event listeners to all "View All" buttons
     document.querySelectorAll('.view-all-btn').forEach(function (button) {
-      console.log("Button found:", button);  // Check if buttons are found
-
       button.addEventListener('click', function (event) {
-        event.preventDefault(); // prevent default anchor behavior
-        console.log("Button clicked");
-
+        event.preventDefault();
         const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
-        console.log('Campaign:', campaignTitle);
-
-        window.dataLayer.push({
+        window.dataLayer = {
+          view:{
           event: 'viewAllClick',
           campaign: campaignTitle
-        });
+        }};
 
-        console.log('DataLayer Event Fired:', {
-          event: 'viewAllClick',
-          campaign: campaignTitle
-        });
+        console.log("Updated digitalData:", window.dataLayer);
       });
     });
   });
