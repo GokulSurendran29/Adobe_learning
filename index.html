@@ -38,26 +38,27 @@
 
         const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
 
-        // Update digitalData using Adobe standard structure
-         window.digitalData.push({
+        // Update digitalData (OBJECT structure, not array)
+        window.digitalData.event = {
           event: "viewAllClick",
           campaign: campaignTitle
-        });
+        };
 
         console.log("Updated digitalData:", window.digitalData);
 
-        // Optional Adobe Analytics tracking function call
+        // Adobe Analytics tracking function
         if (typeof s !== 'undefined' && typeof s.tl === 'function') {
           s.clearVars();
-          s.linkTrackVars = 'eVar14,events'; // customize as needed
+          s.linkTrackVars = 'eVar1,events'; // adjust based on implementation
           s.eVar1 = campaignTitle;
-          s.events = 'eventX'; // replace with actual event code
+          s.events = 'eventX'; // replace with actual event ID from Adobe
           s.tl(this, 'o', 'View All Click');
         }
       });
     });
   });
 </script>
+
 
 
   <title>E-Commerce | Home</title>
