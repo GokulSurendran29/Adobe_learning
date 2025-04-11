@@ -13,39 +13,42 @@
   <script src="https://cmp.osano.com/169xp1U9LciRwCZm6/b2cd7e99-0aa9-4d91-bff6-29d6c9ed7cf3/osano.js"></script>
   <script src="https://assets.adobedtm.com/8459819b208c/cbb93a1fde1a/launch-61ab7d03d3f5.min.js" async></script>
 
-  <script>
+<script>
   window.dataLayer = window.dataLayer || [];
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const cookies = [
-      { name: "cookie_essential", value: "true" },
-      { name: "cookie_marketing", value: "true" },
-      { name: "cookie_personalization", value: "true" },
-      { name: "cookie_blocklist", value: "true" },
-      { name: "cookie_analytics", value: "true" },
-      { name: "Cookie_Test", value: "Test value" },
-      { name: "Cookie_Test2", value: "true" },
-    ];
+  document.addEventListener('DOMContentLoaded', () => {
+    // Set cookies
+    const cookies = {
+      cookie_essential: "true",
+      cookie_marketing: "true",
+      cookie_personalization: "true",
+      cookie_blocklist: "true",
+      cookie_analytics: "true",
+      Cookie_Test: "Test value",
+      Cookie_Test2: "true"
+    };
 
-    cookies.forEach(cookie => {
-      document.cookie = `${cookie.name}=${cookie.value}; path=/; SameSite=Lax`;
-    });
+    for (const [name, value] of Object.entries(cookies)) {
+      document.cookie = `${name}=${value}; path=/; SameSite=Lax`;
+    }
 
-    document.querySelectorAll('.view-all-btn').forEach(function (button) {
-      button.addEventListener('click', function (event) {
+    // Add event listener to view-all buttons
+    document.querySelectorAll('.view-all-btn').forEach(button => {
+      button.addEventListener('click', event => {
         event.preventDefault();
-        const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
-        window.dataLayer = {
-          view:{
-          event: 'viewAllClick',
-          campaign: campaignTitle
-        }};
+        const campaign = button.getAttribute('data-campaign') || 'Unknown Campaign';
 
-        console.log("Updated digitalData:", window.dataLayer);
+        window.dataLayer.push({
+          event: 'viewAllClick',
+          campaign
+        });
+
+        console.log("Updated dataLayer:", window.dataLayer);
       });
     });
   });
 </script>
+
 
 
   <title>E-Commerce | Home</title>
