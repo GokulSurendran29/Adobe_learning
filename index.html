@@ -12,43 +12,55 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.6.0/css/glide.core.min.css" />
   <script src="https://cmp.osano.com/169xp1U9LciRwCZm6/b2cd7e99-0aa9-4d91-bff6-29d6c9ed7cf3/osano.js"></script>
   <script src="https://assets.adobedtm.com/8459819b208c/cbb93a1fde1a/launch-61ab7d03d3f5.min.js" async></script>
-
 <script>
-  window.dataLayer = window.dataLayer || [];
+  window.dataLayer = window.dataLayer || {};
 
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', function () {
     // Set cookies
-    const cookies = {
-      cookie_essential: "true",
-      cookie_marketing: "true",
-      cookie_personalization: "true",
-      cookie_blocklist: "true",
-      cookie_analytics: "true",
-      Cookie_Test: "Test value",
-      Cookie_Test2: "true"
-    };
+    const cookies = [
+      { name: "cookie_essential", value: "true" },
+      { name: "cookie_marketing", value: "true" },
+      { name: "cookie_personalization", value: "true" },
+      { name: "cookie_blocklist", value: "true" },
+      { name: "cookie_analytics", value: "true" },
+      { name: "Cookie_Test", value: "Test value" },
+      { name: "Cookie_Test2", value: "true" },
+    ];
 
-    for (const [name, value] of Object.entries(cookies)) {
-      document.cookie = `${name}=${value}; path=/; SameSite=Lax`;
-    }
+    cookies.forEach(cookie => {
+      document.cookie = `${cookie.name}=${cookie.value}; path=/; SameSite=Lax`;
+    });
 
-    // Add event listener to view-all buttons
-    document.querySelectorAll('.view-all-btn').forEach(button => {
-      button.addEventListener('click', event => {
+    // Attach event listeners to all .view-all-btn buttons
+    document.querySelectorAll('.view-all-btn').forEach(function (button) {
+      button.addEventListener('click', function (event) {
         event.preventDefault();
-        const campaign = button.getAttribute('data-campaign') || 'Unknown Campaign';
 
-        window.dataLayer.push({
-          event: 'viewAllClick',
-          campaign
-        });
+        const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
+
+        // Update digitalData using Adobe standard structure
+        window.dataLayer = {
+          event: {
+            eventName: "viewAllClick",
+            campaign: campaignTitle,
+            eventTime: new Date().toISOString()
+          }
+        };
 
         console.log("Updated dataLayer:", window.dataLayer);
+
+        // Optional Adobe Analytics tracking function call
+        if (typeof s !== 'undefined' && typeof s.tl === 'function') {
+          s.clearVars();
+          s.linkTrackVars = 'eVar14,events'; // customize as needed
+          s.eVar1 = campaignTitle;
+          s.events = 'eventX'; // replace with actual event code
+          s.tl(this, 'o', 'View All Click');
+        }
       });
     });
   });
 </script>
-
 
 
   <title>E-Commerce | Home</title>
