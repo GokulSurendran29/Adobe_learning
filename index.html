@@ -43,7 +43,7 @@
           event: "viewAllClick",
           campaign: campaignTitle
         });
-window.dispatchEvent(new CustomEvent("viewAllClick"));
+        window.dispatchEvent(new CustomEvent("viewAllClick"));
         console.log("Event fired");
         console.log("Updated digitalData:", window.dataLayer);
 
