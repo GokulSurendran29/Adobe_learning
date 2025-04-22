@@ -29,30 +29,25 @@ document.addEventListener('DOMContentLoaded', function () {
     document.cookie = `${cookie.name}=${cookie.value}; path=/; SameSite=Lax`;
   });
 
-  // Generic tracking function
   function trackClick(event, campaign, cta) {
     try {
       event.preventDefault();
-
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: "viewAllClick",
         campaign: campaign || "Unknown Campaign",
         CTA: cta || "card",
       });
-
       console.log("Event fired");
       console.log("Updated dataLayer:", window.dataLayer);
 
-      // Dispatch custom event
       window.dispatchEvent(new CustomEvent("viewAllClick"));
 
-      // Adobe Analytics (if available)
       if (typeof s !== 'undefined' && typeof s.tl === 'function') {
         s.clearVars();
-        s.linkTrackVars = 'eVar14,events'; // customize as needed
+        s.linkTrackVars = 'eVar14,events';
         s.eVar1 = campaign;
-        s.events = 'eventX'; // replace with actual event code
+        s.events = 'eventX';
         s.tl(event.target, 'o', 'View All Click');
       }
     } catch (error) {
@@ -60,23 +55,25 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Attach to .view-all-btn buttons
-  document.querySelectorAll('.view-all-btn').forEach(function (button) {
+  // Regular buttons
+  document.querySelectorAll('.view-all-btn').forEach(button => {
     button.addEventListener('click', function (event) {
       const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
       trackClick(event, campaignTitle, 'card');
     });
   });
 
-  // Attach to download app store icons
-  document.querySelectorAll('.download-app a').forEach(function (link) {
-    link.addEventListener('click', function (event) {
-      const img = this.querySelector('img');
+  // 🛠️ Use event delegation for .download-app links
+  document.body.addEventListener('click', function (event) {
+    const link = event.target.closest('.download-app a');
+    if (link) {
+      const img = link.querySelector('img');
       const altText = img ? img.alt : 'Unknown';
       trackClick(event, altText, 'social icons');
-    });
+    }
   });
 });
+
 </script>
 
 
