@@ -13,7 +13,7 @@
   <script src="https://cmp.osano.com/169xp1U9LciRwCZm6/b2cd7e99-0aa9-4d91-bff6-29d6c9ed7cf3/osano.js"></script>
   <script src="https://assets.adobedtm.com/8459819b208c/cbb93a1fde1a/launch-61ab7d03d3f5.min.js" async></script>
 <script>
- document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
   // Set cookies
   const cookies = [
     { name: "cookie_essential", value: "true" },
@@ -29,42 +29,56 @@
     document.cookie = `${cookie.name}=${cookie.value}; path=/; SameSite=Lax`;
   });
 
-  // Attach event listeners to all .view-all-btn buttons
+  // Generic tracking function
+  function trackClick(event, campaign, cta) {
+    try {
+      event.preventDefault();
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "viewAllClick",
+        campaign: campaign || "Unknown Campaign",
+        CTA: cta || "card",
+      });
+
+      console.log("Event fired");
+      console.log("Updated dataLayer:", window.dataLayer);
+
+      // Dispatch custom event
+      window.dispatchEvent(new CustomEvent("viewAllClick"));
+
+      // Adobe Analytics (if available)
+      if (typeof s !== 'undefined' && typeof s.tl === 'function') {
+        s.clearVars();
+        s.linkTrackVars = 'eVar14,events'; // customize as needed
+        s.eVar1 = campaign;
+        s.events = 'eventX'; // replace with actual event code
+        s.tl(event.target, 'o', 'View All Click');
+      }
+    } catch (error) {
+      console.error("Error handling click event:", error);
+    }
+  }
+
+  // Attach to .view-all-btn buttons
   document.querySelectorAll('.view-all-btn').forEach(function (button) {
     button.addEventListener('click', function (event) {
-      try {
-        event.preventDefault();
+      const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
+      trackClick(event, campaignTitle, 'card');
+    });
+  });
 
-        const campaignTitle = this.getAttribute('data-campaign') || 'Unknown Campaign';
-
-        // Push event to dataLayer
-        window.dataLayer.push({
-          event: "viewAllClick",
-          campaign: campaignTitle,
-          CTA:"card",
-        });
-
-        console.log("Event fired");
-        console.log("Updated dataLayer:", window.dataLayer);
-
-        // Dispatch custom event (optional, if needed for Adobe Launch rules)
-        window.dispatchEvent(new CustomEvent("viewAllClick"));
-
-        // Adobe Analytics tracking function (optional)
-        if (typeof s !== 'undefined' && typeof s.tl === 'function') {
-          s.clearVars();
-          s.linkTrackVars = 'eVar14,events'; // customize as needed
-          s.eVar1 = campaignTitle;
-          s.events = 'eventX'; // replace with actual event code
-          s.tl(this, 'o', 'View All Click');
-        }
-      } catch (error) {
-        console.error("Error handling view-all button click:", error);
-      }
+  // Attach to download app store icons
+  document.querySelectorAll('.download-app a').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      const img = this.querySelector('img');
+      const altText = img ? img.alt : 'Unknown';
+      trackClick(event, altText, 'social icons');
     });
   });
 });
 </script>
+
 
 
 
