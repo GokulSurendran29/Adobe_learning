@@ -30,30 +30,41 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function trackClick(event, campaign, cta) {
-    try {
-      event.preventDefault();
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: "viewAllClick",
-        campaign: campaign || "Unknown Campaign",
-        CTA: cta || "card",
-      });
-      console.log("Event fired");
-      console.log("Updated dataLayer:", window.dataLayer);
+  try {
+    event.preventDefault();
+    window.dataLayer = window.dataLayer || [];
 
-      window.dispatchEvent(new CustomEvent("viewAllClick"));
+    // Remove previous viewAllClick with the same CTA
+    window.dataLayer = window.dataLayer.filter(item => {
+      return !(item.event === 'viewAllClick' && item.CTA === cta);
+    });
 
-      if (typeof s !== 'undefined' && typeof s.tl === 'function') {
-        s.clearVars();
-        s.linkTrackVars = 'eVar14,events';
-        s.eVar1 = campaign;
-        s.events = 'eventX';
-        s.tl(event.target, 'o', 'View All Click');
-      }
-    } catch (error) {
-      console.error("Error handling click event:", error);
+    // Push new event
+    window.dataLayer.push({
+      event: "viewAllClick",
+      campaign: campaign || "Unknown Campaign",
+      CTA: cta || "card",
+    });
+
+    console.log("Event fired");
+    console.log("Updated dataLayer:", window.dataLayer);
+
+    // Dispatch optional custom event
+    window.dispatchEvent(new CustomEvent("viewAllClick"));
+
+    // Adobe Analytics (if defined)
+    if (typeof s !== 'undefined' && typeof s.tl === 'function') {
+      s.clearVars();
+      s.linkTrackVars = 'eVar14,events';
+      s.eVar1 = campaign;
+      s.events = 'eventX';
+      s.tl(event.target, 'o', 'View All Click');
     }
+  } catch (error) {
+    console.error("Error handling click event:", error);
   }
+}
+
 
   // Regular buttons
   document.querySelectorAll('.view-all-btn').forEach(button => {
