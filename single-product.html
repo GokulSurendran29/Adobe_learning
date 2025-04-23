@@ -14,20 +14,35 @@
 <script src="https://assets.adobedtm.com/8459819b208c/cbb93a1fde1a/launch-61ab7d03d3f5.min.js" async></script>
 <!--     <script src="https://assets.adobedtm.com/8459819b208c/b7514740f7ba/launch-2c1d3f01cca4.min.js" async></script> -->
     <script>
-    var digitalData = digitalData || {};
-    digitalData = {
-        page: {
-            pageName: "Man:Pants:Ridley High Waist",
-            siteSection: "Men's Section",
-            siteSubsection: "Fine Apparel",
-            server: "USA Server"
-        },
-        product: {
-            productEvent: "Product View",
-            productID: "BE45VGRT",
-            productName: "Ridley High Waist"
-        },
-    };
+   document.addEventListener('click', function(event) {
+    if (event && event.target) {
+        var activeColor = event.target.closest('.color-wrapper.active label');
+        if (activeColor) {
+            var color = window.getComputedStyle(activeColor).backgroundColor;
+
+            var colorMap = {
+                'rgb(0, 0, 255)': 'Blue',
+                'rgb(255, 0, 0)': 'Red',
+                'rgb(255, 255, 0)': 'Yellow',
+                'rgb(0, 128, 0)': 'Green'
+            };
+
+            var selectedColor = colorMap[color] || 'Unknown Color';
+
+            // ✅ Push to dataLayer
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: "viewAllClick", 
+                selected_color: selectedColor,
+                CTA:"swatch",
+                
+            });
+
+            console.log("Pushed to dataLayer:", selectedColor);
+        }
+    }
+});
+
 </script>
 </head>
 
