@@ -32,13 +32,10 @@ function updateDigitalDataFromCart() {
     if (target && target.classList.contains("delete-cart")) {
         var product= target.getAttribute("data-id") || ""; 
     }
-    window.digitalData.push({
-        event: "viewAllClick", 
-        product: product,
-        CTA:"Button",
-    });
-    window.dispatchEvent(new CustomEvent("viewAllClick"));
     window.digitalData = {
+        event: "viewAllClick",
+        product: product,
+        CTA: "Button",
         page: {
             pageName: "Cart Page",
             siteSection: "Shopping Cart",
@@ -56,6 +53,7 @@ function updateDigitalDataFromCart() {
 window
     console.log("Updated digitalData:", window.digitalData);
 }
+        
 // Initial call to update data on page load
 updateDigitalDataFromCart();
 
@@ -67,6 +65,8 @@ document.addEventListener("click", function (event) {
         updateDigitalDataFromCart();
     }
 });
+            window.dispatchEvent(new CustomEvent("viewAllClick"));
+
 </script>
 
     <title>E-Commerce | Cart</title>
