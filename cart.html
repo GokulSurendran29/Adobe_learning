@@ -28,7 +28,16 @@ function updateDigitalDataFromCart() {
         quantity: item.quantity,
         productImage: item.img.singleImage
     }));
-
+  var target = window.event ? window.event.target : null; 
+    if (target && target.classList.contains("delete-cart")) {
+        var product= target.getAttribute("data-id") || ""; 
+    }
+    window.digitalData.push({
+        event: "viewAllClick", 
+        product: product,
+        CTA:"Button",
+    });
+    window.dispatchEvent(new CustomEvent("viewAllClick"));
     window.digitalData = {
         page: {
             pageName: "Cart Page",
@@ -44,7 +53,7 @@ function updateDigitalDataFromCart() {
             products: products
         }
     };
-
+window
     console.log("Updated digitalData:", window.digitalData);
 }
 // Initial call to update data on page load
